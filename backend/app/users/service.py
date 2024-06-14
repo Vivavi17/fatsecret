@@ -4,7 +4,8 @@ import jwt
 from passlib.context import CryptContext
 from pydantic import EmailStr
 
-from app.config import cache, settings
+from app.config import settings
+from app.cache import cache
 from app.exceptions import IncorretLoginOrPasswordException, UserAlreadyExistException
 from app.users.dao import UsersDAO
 from app.users.schemas import SUsers, SUsersUpgrade, UserAuth, UsersRegister

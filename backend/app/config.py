@@ -17,8 +17,6 @@ class Settings(BaseSettings):
 
     token_life: int
 
-    BOT_TOKEN: str
-
     @property
     def URL(self):
         return f"postgresql+asyncpg://{self.DB_USER}:{self.DB_PASS}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
