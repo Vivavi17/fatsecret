@@ -1,3 +1,4 @@
+import redis.asyncio as redis
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -7,6 +8,16 @@ class Settings(BaseSettings):
     DB_HOST: str
     DB_USER: str
     DB_PASS: str
+
+    secret: str
+    algorithm: str
+
+    REDIS_PORT: int
+    REDIS_HOST: str
+
+    token_life: int
+
+    BOT_TOKEN: str
 
     @property
     def URL(self):
