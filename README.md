@@ -20,17 +20,17 @@
 
 ###  Структура дерева директорий
 
-**fatsecret**
-├── **backend**
-│ └── **app**
-│ ├── **dao**
-│ ├── **goods**
-│ ├── **journal**
-│ ├── **migrations**
-│ │ └── **versions**
-│ └── **users**
-└── **tg_bot**
-└── **app**
+	fatsecret
+	├── backend
+	│ └── app
+	│ ├── dao
+	│ ├── goods
+	│ ├── journal
+	│ ├── migrations
+	│ │ └── versions
+	│ └── users
+	└── tg_bot
+	└── app
 
   
 ### Описание модулей
