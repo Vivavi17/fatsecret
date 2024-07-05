@@ -2,7 +2,8 @@ from fastapi import APIRouter, Depends, Response
 
 from app.users.depends import get_curent_user, user_rights
 from app.users.schemas import SUsers, UserAuth, UsersRegister
-from app.users.service import auth_user, create_cookies, del_cookie, register_user
+from app.users.service import (auth_user, create_cookies, del_cookie,
+                               register_user)
 
 router = APIRouter(prefix="/auth", tags=["Auth"])
 
@@ -37,5 +38,6 @@ async def refresh_token(response: Response, user=Depends(get_curent_user)) -> st
 
 
 @router.get("/ping_me")
-def ping(user=Depends(user_rights)) -> str:
-    return f"User id:{user.id} ping!"
+def ping(user=Depends(user_rights)) -> str | None:
+    if user:
+        return f"User id:{user.id} ping!"

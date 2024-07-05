@@ -1,4 +1,3 @@
-import redis.asyncio as redis
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 

@@ -22,6 +22,13 @@ class JournalDao(BaseDAO):
                     (func.sum(cls.model.weight * Goods.kcal) / 100).label(
                         "kcal_on_day"
                     ),
+                    (func.sum(cls.model.weight * Goods.proteins) / 100).label(
+                        "proteins"
+                    ),
+                    (func.sum(cls.model.weight * Goods.fats) / 100).label("fats"),
+                    (func.sum(cls.model.weight * Goods.carbohydrates) / 100).label(
+                        "carbohydrates"
+                    ),
                 )
                 .select_from(cls.model)
                 .where(
@@ -35,8 +42,19 @@ class JournalDao(BaseDAO):
             )
 
             avg_on_days = select(
-                func.avg(sum_kcal_from_period.c.kcal_on_day)
+                func.avg(sum_kcal_from_period.c.kcal_on_day).label(
+                        "kcal_on_day"
+                    ),
+                func.avg(sum_kcal_from_period.c.proteins).label(
+                        "proteins"
+                    ),
+                func.avg(sum_kcal_from_period.c.fats).label(
+                        "fats"
+                    ),
+                func.avg(sum_kcal_from_period.c.carbohydrates).label(
+                        "carbohydrates"
+                    )
             ).select_from(sum_kcal_from_period)
 
             result = await session.execute(avg_on_days)
-            return result.scalar()
+            return result.mappings().one()

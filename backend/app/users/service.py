@@ -4,9 +4,10 @@ import jwt
 from passlib.context import CryptContext
 from pydantic import EmailStr
 
-from app.config import settings
 from app.cache import cache
-from app.exceptions import IncorretLoginOrPasswordException, UserAlreadyExistException
+from app.config import settings
+from app.exceptions import (IncorretLoginOrPasswordException,
+                            UserAlreadyExistException)
 from app.users.dao import UsersDAO
 from app.users.schemas import SUsers, SUsersUpgrade, UserAuth, UsersRegister
 
@@ -30,7 +31,7 @@ def create_token(data: dict) -> str:
         expire = datetime.now() + timedelta(days=settings.token_life)
     to_encode.update({"exp": expire})
     encoded_token = jwt.encode(to_encode, settings.secret, settings.algorithm)
-    return encoded_token.decode("utf-8")
+    return encoded_token
 
 
 async def create_cookies(user_id: int, user_email: str) -> tuple[str]:

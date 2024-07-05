@@ -25,12 +25,13 @@ def get_access_token(request: Request):
     return token
 
 
-async def user_rights(token=Depends(get_access_token)):
-    payload = jwt.decode(token, settings.secret, settings.algorithm)
-    user_id = payload.get("sub")
-    if not user_id:
-        raise jwt.InvalidTokenError
-    user = await UsersDAO.find_one_or_none(id=int(user_id))
-    if not user:
-        raise jwt.InvalidTokenError
-    return user
+async def user_rights(token=Depends(get_access_token), telegram_id: int | None = None):
+    if token:
+        payload = jwt.decode(token, settings.secret, settings.algorithm)
+        user_id = payload.get("sub")
+        if not user_id:
+            raise jwt.InvalidTokenError
+        user = await UsersDAO.find_one_or_none(id=int(user_id))
+    elif telegram_id:
+        user = await UsersDAO.find_one_or_none(id_tg=int(telegram_id))
+    return user if user else None
